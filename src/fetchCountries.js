@@ -1,0 +1,7 @@
+const url = new URLSearchParams({});
+
+export function fetchCountries(name) {
+  return fetch(
+    `https://restcountries.com/v3.1/name/${name}?fields=name,capital,currencies,population,flags,languages`
+  ).then(response => response.json());
+}
