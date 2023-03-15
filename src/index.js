@@ -41,13 +41,13 @@ function renderMarkup(data) {
     );
     return;
   }
-  if (data.length === 1) {
-    const { name, capital, population, flags, languages } = data[0];
-    console.log(Object.keys(languages));
-    const allLanguages = Object.entries(languages)
-      .map(item => item[1])
-      .join(', ');
-    markup = `
+
+  const { name, capital, population, flags, languages } = data[0];
+  console.log(Object.keys(languages));
+  const allLanguages = Object.entries(languages)
+    .map(item => item[1])
+    .join(', ');
+  markup = `
     <div class="country-info__wrapper"><img src="${
       flags.svg
     }" class="country-info__img" />
@@ -60,9 +60,7 @@ function renderMarkup(data) {
         }: </span>${allLanguages}</li>
         </ul>
       `;
-    insertHtml('', markup);
-    return;
-  }
+  insertHtml('', markup);
 }
 
 function insertHtml(intoUl = '', intoDiv = '') {
