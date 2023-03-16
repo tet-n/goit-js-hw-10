@@ -20,7 +20,10 @@ function onSearch(e) {
 
   fetchCountries(countryName)
     .then(renderMarkup)
-    .catch(error => Notiflix.Notify.failure(error.message));
+    .catch(error => {
+      Notiflix.Notify.failure(error.message);
+      insertHtml();
+    });
 }
 
 function renderMarkup(data) {
@@ -28,7 +31,7 @@ function renderMarkup(data) {
   if (data.length >= 2 && data.length <= 10) {
     markup = data
       .map(({ name, flags }) => {
-        return `<li class="country__item"><img src="${flags.svg}" class="country__img" /><h2 class="country__heading">${name.official}</h2>
+        return `<li class="country__item"><img src="${flags.svg}" alt="${flags.alt}" class="country__img" /><h2 class="country__heading">${name.official}</h2>
         </li>`;
       })
       .join('');
@@ -43,14 +46,13 @@ function renderMarkup(data) {
   }
 
   const { name, capital, population, flags, languages } = data[0];
-  console.log(Object.keys(languages));
   const allLanguages = Object.entries(languages)
     .map(item => item[1])
     .join(', ');
   markup = `
-    <div class="country-info__wrapper"><img src="${
-      flags.svg
-    }" class="country-info__img" />
+    <div class="country-info__wrapper"><img src="${flags.svg}" alt="${
+    flags.alt
+  }" class="country-info__img" />
         <h2 class="country-info__heading">${name.official}</h2></div>
         <ul class="country-info__list">
         <li class="country-info__item"><span class="country-info__name">Capital: </span>${capital}</li>
